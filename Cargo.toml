@@ -299,6 +299,7 @@ rdkafka = { version = "0.35.0", default-features = false, features = ["tokio", "
 redis = { version = "0.23.4", default-features = false, features = ["connection-manager", "tokio-comp", "tokio-native-tls-comp"], optional = true }
 regex = { version = "1.10.2", default-features = false, features = ["std", "perf"] }
 roaring = { version = "0.10.2", default-features = false, optional = true }
+rumqttc = { version = "0.20.0", default-features = false, features = ["use-rustls"], optional = true }
 seahash = { version = "4.1.0", default-features = false }
 semver = { version = "1.0.20", default-features = false, features = ["serde", "std"], optional = true }
 smallvec = { version = "1", default-features = false, features = ["union", "serde"] }
@@ -634,6 +635,7 @@ sinks-logs = [
   "sinks-kafka",
   "sinks-mezmo",
   "sinks-loki",
+  "sinks-mqtt",
   "sinks-nats",
   "sinks-new_relic_logs",
   "sinks-new_relic",
@@ -696,7 +698,14 @@ sinks-influxdb = []
 sinks-kafka = ["dep:rdkafka"]
 sinks-mezmo = []
 sinks-loki = ["loki-logproto"]
+<<<<<<< HEAD
 sinks-nats = ["dep:async-nats", "dep:nkeys"]
+||||||| bd70509cd
+sinks-nats = ["dep:nats", "dep:nkeys"]
+=======
+sinks-mqtt = ["dep:rumqttc"]
+sinks-nats = ["dep:nats", "dep:nkeys"]
+>>>>>>> 272ef317f115182dc07bfe01470ba91e6e993899
 sinks-new_relic_logs = ["sinks-http"]
 sinks-new_relic = []
 sinks-papertrail = ["dep:syslog"]
@@ -821,6 +830,7 @@ kafka-integration-tests = ["sinks-kafka", "sources-kafka"]
 logstash-integration-tests = ["docker", "sources-logstash"]
 loki-integration-tests = ["sinks-loki"]
 mongodb_metrics-integration-tests = ["sources-mongodb_metrics"]
+mqtt-integration-tests = ["sinks-mqtt"]
 nats-integration-tests = ["sinks-nats", "sources-nats"]
 nginx-integration-tests = ["sources-nginx_metrics"]
 opentelemetry-integration-tests = ["sources-opentelemetry"]
